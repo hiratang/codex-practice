@@ -3,80 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hirata BJJ | ブラジリアン柔術道場</title>
+    <title>WAV to MP3 Converter | 最高品質320kbps変換</title>
     <meta
       name="description"
-      content="Hirata BJJ（ヒラタ・ブラジリアン柔術）の公式ホームページ。初心者から経験者まで歓迎の柔術道場です。"
+      content="複数のWAVファイルをブラウザ上で最高品質320kbpsのMP3形式へ一括変換できるウェブアプリです。"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
-    <header class="hero">
-      <div class="hero__overlay"></div>
-      <div class="hero__content">
-        <p class="hero__eyebrow">Brazilian Jiu-Jitsu Academy</p>
-        <h1>Hirata BJJ</h1>
-        <p class="hero__lead">
-          礼節・技術・挑戦。初心者から試合志向の選手まで、
-          すべてのメンバーが成長できる柔術道場です。
-        </p>
-        <a class="button" href="#contact">無料体験を申し込む</a>
-      </div>
-      <figure class="hero__photo">
-        <img
-          src="assets/hirata-bjj-instructor.jpg"
-          alt="Hirata BJJ インストラクター"
-        />
-      </figure>
-    </header>
-
-    <main>
-      <section class="section" id="about">
-        <h2>道場について</h2>
-        <p>
-          Hirata BJJは、ブラジリアン柔術を通じて心身の強さと自信を育てることを目指しています。
-          技術指導はもちろん、安心して学べる雰囲気づくりを大切にしています。
-        </p>
-      </section>
-
-      <section class="section section--alt" id="classes">
-        <h2>クラス案内</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>初心者クラス</h3>
-            <p>基礎動作・受け身・ポジション理解を丁寧に学べる入門クラス。</p>
-          </article>
-          <article class="card">
-            <h3>オールレベル</h3>
-            <p>スパーリングとテクニックをバランスよく行う実践クラス。</p>
-          </article>
-          <article class="card">
-            <h3>キッズ柔術</h3>
-            <p>礼儀・集中力・運動能力を育む子ども向けプログラム。</p>
-          </article>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="app-title">
+        <div class="hero__content">
+          <p class="hero__eyebrow">Batch Audio Converter</p>
+          <h1 id="app-title">WAVを高音質MP3へ一括変換</h1>
+          <p class="hero__lead">
+            複数のWAVファイルをまとめてアップロードし、MP3の最高品質ビットレートである320kbpsに変換します。
+            変換処理はブラウザ内で完結するため、音源をサーバーへ送信しません。
+          </p>
+        </div>
+        <div class="quality-card" aria-label="変換品質">
+          <span class="quality-card__value">320</span>
+          <span class="quality-card__unit">kbps</span>
+          <p>MP3最高品質ビットレート</p>
         </div>
       </section>
 
-      <section class="section" id="schedule">
-        <h2>スケジュール（例）</h2>
-        <ul class="schedule">
-          <li><span>月・水・金</span><span>19:30 - 21:00</span><span>オールレベル</span></li>
-          <li><span>火・木</span><span>18:30 - 19:30</span><span>初心者クラス</span></li>
-          <li><span>土</span><span>10:00 - 11:00</span><span>キッズ柔術</span></li>
-        </ul>
-      </section>
+      <section class="converter" aria-labelledby="converter-title">
+        <div class="converter__header">
+          <div>
+            <p class="section-label">Upload WAV Files</p>
+            <h2 id="converter-title">WAVファイルを選択</h2>
+          </div>
+          <button class="button button--ghost" id="clearButton" type="button" disabled>
+            クリア
+          </button>
+        </div>
 
-      <section class="section section--alt" id="contact">
-        <h2>お問い合わせ</h2>
-        <p>
-          見学・無料体験はいつでも受付中です。お気軽にご連絡ください。
-        </p>
-        <a class="button button--dark" href="mailto:info@hiratabjj.jp">info@hiratabjj.jp</a>
+        <label class="drop-zone" id="dropZone">
+          <input id="fileInput" type="file" accept="audio/wav,.wav" multiple />
+          <span class="drop-zone__icon">♪</span>
+          <span class="drop-zone__title">クリックまたはドラッグ＆ドロップ</span>
+          <span class="drop-zone__text">複数のWAVファイルを同時に選択できます</span>
+        </label>
+
+        <div class="actions">
+          <button class="button" id="convertButton" type="button" disabled>
+            320kbps MP3に変換
+          </button>
+          <p class="status" id="status" role="status" aria-live="polite">
+            WAVファイルを選択してください。
+          </p>
+        </div>
+
+        <ul class="file-list" id="fileList" aria-label="選択されたファイル"></ul>
       </section>
     </main>
-
-    <footer>
-      <p>© 2026 Hirata BJJ. All Rights Reserved.</p>
-    </footer>
   </body>
 </html>
